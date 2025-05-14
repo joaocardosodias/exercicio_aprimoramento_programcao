@@ -1,127 +1,55 @@
-// Classe Fila (FIFO)
-class Fila {
-    constructor() {
-        this.itens = [];
-    }
+// Fila de atendimento (FIFO)
+let filaAtendimento = [];
 
-    enfileirar(elemento) {
-        this.itens.push(elemento);
-    }
+// Pilha de prontuários (LIFO)
+let pilhaProntuarios = [];
 
-    desenfileirar() {
-        return this.itens.shift();
-    }
+// Adicionando 5 pacientes à fila
+filaAtendimento.push("Ana");
+filaAtendimento.push("Bruno");
+filaAtendimento.push("Carla");
+filaAtendimento.push("Daniel");
+filaAtendimento.push("Eduarda");
 
-    espiar() {
-        return this.itens[0];
-    }
+console.log("Fila inicial de atendimento:");
+console.log(filaAtendimento.join(", "));
 
-    estaVazia() {
-        return this.itens.length === 0;
-    }
+// Ver quem será o próximo a ser atendido
+let proximo = filaAtendimento[0];
+console.log("\nPróximo paciente a ser atendido:");
+console.log(proximo);
 
-    imprimir() {
-        return this.itens.join(", ");
-    }
+// Atender primeiro paciente
+let atendido1 = filaAtendimento.shift();
+console.log(`\nPaciente atendido: ${atendido1}`);
+pilhaProntuarios.push(atendido1);
 
-    limpar() {
-        this.itens = [];
-    }
+// Atender segundo paciente
+let atendido2 = filaAtendimento.shift();
+console.log(`\nPaciente atendido: ${atendido2}`);
+pilhaProntuarios.push(atendido2);
+
+// Mostrar fila restante
+console.log("\nFila de atendimento restante:");
+console.log(filaAtendimento.join(", "));
+
+// Mostrar pilha de prontuários (do topo para a base)
+console.log("\nPilha de prontuários:");
+console.log([...pilhaProntuarios].reverse().join(", "));
+
+// Extra: buscar prontuário específico
+let nomeBuscado = "Ana";
+if (pilhaProntuarios.includes(nomeBuscado)) {
+    console.log(`\nProntuário de ${nomeBuscado} encontrado na pilha.`);
+} else {
+    console.log(`\n Prontuário de ${nomeBuscado} não está na pilha.`);
 }
 
-// Classe Pilha (LIFO)
-class Pilha {
-    constructor() {
-        this.itens = [];
-    }
+// Reiniciar simulação com nova lista
+console.log("\nReiniciando simulação com nova fila:");
 
-    empilhar(elemento) {
-        this.itens.push(elemento);
-    }
+filaAtendimento = ["Felipe", "Gabriela", "Henrique"];
+pilhaProntuarios = [];
 
-    desempilhar() {
-        return this.itens.pop();
-    }
-
-    espiar() {
-        return this.itens[this.itens.length - 1];
-    }
-
-    estaVazia() {
-        return this.itens.length === 0;
-    }
-
-    imprimir() {
-        return this.itens.slice().reverse().join(", ");
-    }
-
-    buscar(nome) {
-        return this.itens.includes(nome);
-    }
-
-    limpar() {
-        this.itens = [];
-    }
-}
-
-// Função principal da simulação
-function simularAtendimento() {
-    const filaAtendimento = new Fila();
-    const pilhaProntuarios = new Pilha();
-
-    // Adicionando 5 pacientes à fila
-    const pacientes = ["Ana", "Bruno", "Carla", "Daniel", "Eduarda"];
-    pacientes.forEach(p => filaAtendimento.enfileirar(p));
-
-    console.log(" Fila inicial de atendimento:");
-    console.log(filaAtendimento.imprimir());
-
-    console.log("\n Próximo paciente a ser atendido:");
-    console.log(filaAtendimento.espiar());
-
-    // Simulando atendimento de dois pacientes
-    for (let i = 0; i < 2; i++) {
-        const atendido = filaAtendimento.desenfileirar();
-        console.log(`\n Paciente atendido: ${atendido}`);
-        pilhaProntuarios.empilhar(atendido);
-    }
-
-    console.log("\n Fila de atendimento restante:");
-    console.log(filaAtendimento.imprimir());
-
-    console.log("\n Pilha de prontuários (do topo para a base):");
-    console.log(pilhaProntuarios.imprimir());
-
-    return { filaAtendimento, pilhaProntuarios };
-}
-
-//  Função extra: buscar paciente na pilha de prontuários
-function buscarProntuario(pilha, nome) {
-    if (pilha.buscar(nome)) {
-        console.log(` Prontuário de ${nome} encontrado na pilha.`);
-    } else {
-        console.log(` Prontuário de ${nome} não está na pilha.`);
-    }
-}
-
-//  Reiniciar simulação com nova lista
-function reiniciarSimulacao(novosPacientes) {
-    console.log("\n Reiniciando simulação...");
-    const fila = new Fila();
-    const pilha = new Pilha();
-
-    novosPacientes.forEach(p => fila.enfileirar(p));
-
-    console.log(" Nova fila de pacientes:");
-    console.log(fila.imprimir());
-}
-
-// Executando simulação principal
-const { pilhaProntuarios } = simularAtendimento();
-
-// Executando busca extra
-buscarProntuario(pilhaProntuarios, "Ana");
-buscarProntuario(pilhaProntuarios, "Carla");
-
-// Executando reinício (opcional)
-reiniciarSimulacao(["Felipe", "Gabriela", "Henrique"]);
+console.log("Nova fila de atendimento:");
+console.log(filaAtendimento.join(", "));
